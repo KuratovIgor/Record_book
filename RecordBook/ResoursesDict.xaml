@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DropShadowBitmapEffect x:Key="ShadowEffect" ShadowDepth="2" Softness="1"></DropShadowBitmapEffect>
+    <ControlTemplate TargetType="Button" x:Key="btnTemplate">
+        <Border Margin="15" 
+                BorderBrush="Black"
+                BorderThickness="1"
+                Background="LemonChiffon">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="8" ShadowDepth="3" RenderingBias="Performance"/>
+            </Border.Effect>
+            <ContentControl Content="{TemplateBinding Content}" 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+            </ContentControl>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="FontSize"  Value="15"></Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate TargetType="TextBox" x:Key="tboxTemplate">
+        <TextBox BorderBrush="Black" BorderThickness="1"
+                 FontSize="15"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Margin="20"
+                 Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                 BitmapEffect="{StaticResource ShadowEffect}">
+        </TextBox>
+    </ControlTemplate>
+</ResourceDictionary>

@@ -1,0 +1,50 @@
+﻿<Window x:Class="RecordBook.CreateRecordBookWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RecordBook"
+        mc:Ignorable="d"
+        Title="Создание зачётной книги" MinHeight="550" MinWidth="700">
+    <Window.DataContext>
+        <local:CreateRecodBookViewModel/>
+    </Window.DataContext>
+    <Grid Background="LightYellow">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Column="0" Grid.Row="0" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
+            <TextBlock FontSize="20" Margin="8" Text="ФИО студента" BitmapEffect="{StaticResource ShadowEffect}"/>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="1" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
+            <TextBlock FontSize="20" Margin="8" Text="Номер зачетной книжки" BitmapEffect="{StaticResource ShadowEffect}"/>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="2" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
+            <TextBlock FontSize="20" Margin="8" Text="Курс" BitmapEffect="{StaticResource ShadowEffect}"/>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="3" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
+            <TextBlock FontSize="20" Margin="8" Text="Группа" BitmapEffect="{StaticResource ShadowEffect}"/>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="4" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
+            <TextBlock FontSize="20" Margin="8" Text="ФИО руководителя" BitmapEffect="{StaticResource ShadowEffect}"/>
+        </Border>
+
+        <TextBox Grid.Column="1" Grid.Row="0" Template="{StaticResource tboxTemplate}" Text="{Binding Fio}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Template="{StaticResource tboxTemplate}" Text="{Binding  NumberRecordBook}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Template="{StaticResource tboxTemplate}" Text="{Binding  Course}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Template="{StaticResource tboxTemplate}" Text="{Binding Group}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Template="{StaticResource tboxTemplate}" Text="{Binding  FioZam}"/>
+
+        <Button Grid.Column="1" Grid.Row="5" Content="Создать" FontSize="20" Command="{Binding CreateCommand}" Template="{StaticResource btnTemplate}"/>
+    </Grid>
+</Window>
