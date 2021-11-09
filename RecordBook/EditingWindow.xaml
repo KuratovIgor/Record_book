@@ -63,9 +63,27 @@
                 <TextBlock Text="Дата выставления" FontSize="15" BitmapEffect="{StaticResource ShadowEffect}"/>
             </Border>
 
-            <TextBox Grid.Column="1" Grid.Row="0" Template="{StaticResource tboxTemplate}" Text="{Binding Term}"/>
-            <TextBox Grid.Column="1" Grid.Row="1" Template="{StaticResource tboxTemplate}" Text="{Binding NameSubject}"/>
-            <TextBox Grid.Column="1" Grid.Row="2" Template="{StaticResource tboxTemplate}" Text="{Binding Mark}"/>
+            <ComboBox FontSize="15" HorizontalContentAlignment="Center" 
+                      Grid.Column="1" Grid.Row="0"
+                      BorderThickness="2" Margin="15"
+                      ItemsSource="{Binding Terms}"
+                      SelectedItem="{Binding CurrentTerm}" 
+                      BitmapEffect="{StaticResource ShadowEffect}">
+            </ComboBox>
+            <ComboBox FontSize="15" HorizontalContentAlignment="Center" 
+                      Grid.Column="1" Grid.Row="1"
+                      BorderThickness="2" Margin="15"
+                      ItemsSource="{Binding Subjects}"
+                      SelectedItem="{Binding Subject}" 
+                      BitmapEffect="{StaticResource ShadowEffect}">
+            </ComboBox>
+            <ComboBox FontSize="15" HorizontalContentAlignment="Center" 
+                      Grid.Column="1" Grid.Row="2" 
+                      BorderThickness="2" Margin="15"
+                      ItemsSource="{Binding Marks}"
+                      SelectedItem="{Binding Mark}" 
+                      BitmapEffect="{StaticResource ShadowEffect}">
+            </ComboBox>
             <TextBox Grid.Column="1" Grid.Row="3" Template="{StaticResource tboxTemplate}" Text="{Binding Date}"/>
 
             <Button Grid.Row="4" Grid.Column="1" Content="Внести оценку" Template="{StaticResource btnTemplate}" Command="{Binding EditCommand}"/>

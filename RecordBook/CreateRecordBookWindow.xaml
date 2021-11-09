@@ -39,9 +39,15 @@
             <TextBlock FontSize="20" Margin="8" Text="ФИО руководителя" BitmapEffect="{StaticResource ShadowEffect}"/>
         </Border>
 
+        <ComboBox FontSize="15" HorizontalContentAlignment="Center"
+                  Grid.Column="1" Grid.Row="2"
+                  BorderThickness="2" Margin="15"
+                  ItemsSource="{Binding Courses}"
+                  SelectedItem="{Binding Course}" 
+                  BitmapEffect="{StaticResource ShadowEffect}">
+        </ComboBox>
         <TextBox Grid.Column="1" Grid.Row="0" Template="{StaticResource tboxTemplate}" Text="{Binding Fio}"/>
         <TextBox Grid.Column="1" Grid.Row="1" Template="{StaticResource tboxTemplate}" Text="{Binding  NumberRecordBook}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Template="{StaticResource tboxTemplate}" Text="{Binding  Course}"/>
         <TextBox Grid.Column="1" Grid.Row="3" Template="{StaticResource tboxTemplate}" Text="{Binding Group}"/>
         <TextBox Grid.Column="1" Grid.Row="4" Template="{StaticResource tboxTemplate}" Text="{Binding  FioZam}"/>
 

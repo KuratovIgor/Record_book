@@ -114,8 +114,8 @@ namespace RecordBook
                     string numberRB = reader.GetValue(0) as string;
                     string name = reader.GetValue(1) as string;
                     int course = Convert.ToInt32(reader.GetValue(2));
-                    string group = reader.GetValue(4) as string;
                     string nameZam = reader.GetValue(3) as string;
+                    string group = reader.GetValue(4) as string;
 
                     RecordBooks.Add(new RecBook(numberRB, name, course, group, nameZam));
                 }

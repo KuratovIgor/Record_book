@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RecordBook"
         mc:Ignorable="d"
         Title="Выставление оценок" MinHeight="550" MinWidth="800">
-    <Grid x:Name="Grid" Background="LightYellow">
+    <Grid Background="LightYellow">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
@@ -74,13 +74,31 @@
             <Border Grid.Column="0" Grid.Row="6" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
                 <TextBlock Text="ФИО преподавателя" FontSize="15" BitmapEffect="{StaticResource ShadowEffect}"/>
             </Border>
-                
-            <TextBox Grid.Column="1" Grid.Row="0" Template="{StaticResource tboxTemplate}" Text="{Binding Term}"/>
+
+            <ComboBox FontSize="15" HorizontalContentAlignment="Center"
+                      Grid.Column="1" Grid.Row="0"
+                      BorderThickness="2" Margin="15"
+                      ItemsSource="{Binding Terms}"
+                      SelectedItem="{Binding CurrentTerm}" 
+                      BitmapEffect="{StaticResource ShadowEffect}">
+            </ComboBox>
+            <ComboBox FontSize="15" HorizontalContentAlignment="Center" 
+                      Grid.Column="1" Grid.Row="3" 
+                      BorderThickness="2" Margin="15"
+                      ItemsSource="{Binding Marks}"
+                      SelectedItem="{Binding Mark}" 
+                      BitmapEffect="{StaticResource ShadowEffect}">
+            </ComboBox>
+            <ComboBox FontSize="15" HorizontalContentAlignment="Center"
+                      Grid.Column="1" Grid.Row="5"
+                      BorderThickness="2" Margin="15"
+                      ItemsSource="{Binding Types}"
+                      SelectedItem="{Binding Type}" 
+                      BitmapEffect="{StaticResource ShadowEffect}">
+            </ComboBox>
             <TextBox Grid.Column="1" Grid.Row="1" Template="{StaticResource tboxTemplate}" Text="{Binding NameSubject}"/>
             <TextBox Grid.Column="1" Grid.Row="2" Template="{StaticResource tboxTemplate}" Text="{Binding CountHours}"/>
-            <TextBox Grid.Column="1" Grid.Row="3" Template="{StaticResource tboxTemplate}" Text="{Binding Mark}"/>
             <TextBox Grid.Column="1" Grid.Row="4" Template="{StaticResource tboxTemplate}" Text="{Binding Date}"/>
-            <TextBox Grid.Column="1" Grid.Row="5" Template="{StaticResource tboxTemplate}" Text="{Binding Type}"/>
             <TextBox Grid.Column="1" Grid.Row="6" Template="{StaticResource tboxTemplate}" Text="{Binding Teacher}"/>
 
             <Button Grid.Row="7" Grid.Column="1" Content="Внести оценку" Template="{StaticResource btnTemplate}" Command="{Binding AddMarkCommand}"/>

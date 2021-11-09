@@ -32,6 +32,7 @@ namespace RecordBook
 
             try
             {
+                ClearMarks();
                 SetMarks();
                 Calculate();
             }
@@ -39,6 +40,12 @@ namespace RecordBook
             {
                 MessageBox.Show(e.Message);
             }
+        }
+
+        private static void ClearMarks()
+        {
+            for (int i = 2; i <= 5; i++)
+                Marks[i] = 0;
         }
 
         private static void SetMarks()

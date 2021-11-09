@@ -12,13 +12,17 @@ namespace RecordBook
 {
     public class CreateRecodBookViewModel : DependencyObject
     {
+        public List<string> Courses { get; set; } = new List<string>
+        {
+            "1", "2", "3", "4"
+        };
+
         private SqlConnection _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RecordBookDB"].ConnectionString);
 
         private static readonly DependencyProperty FioProperty = DependencyProperty.Register("Fio", typeof(string), typeof(CreateRecodBookViewModel));
         private static readonly DependencyProperty NumberRBProperty = DependencyProperty.Register("NumberRecordBook", typeof(string), typeof(CreateRecodBookViewModel));
-        private static readonly DependencyProperty CourseProperty = DependencyProperty.Register("Course", typeof(string), typeof(CreateRecodBookViewModel));
-        private static readonly DependencyProperty GroupProperty = DependencyProperty.Register("FioZam", typeof(string), typeof(CreateRecodBookViewModel));
-        private static readonly DependencyProperty FioZamProperty = DependencyProperty.Register("Group", typeof(string), typeof(CreateRecodBookViewModel));
+        private static readonly DependencyProperty GroupProperty = DependencyProperty.Register("Group", typeof(string), typeof(CreateRecodBookViewModel));
+        private static readonly DependencyProperty FioZamProperty = DependencyProperty.Register("FioZam", typeof(string), typeof(CreateRecodBookViewModel));
 
         private RelayCommand _createCommand;
 
@@ -34,10 +38,11 @@ namespace RecordBook
             set => SetValue(NumberRBProperty, (value));
         }
 
+        private string _course;
         public string Course
         {
-            get => (string)GetValue(CourseProperty);
-            set => SetValue(CourseProperty, (value));
+            get => _course;
+            set => _course = value;
         }
 
         public string FioZam
