@@ -78,8 +78,10 @@ namespace RecordBook
             {
                 throw new Exception("Выберите зачетную книжку!");
             }
-
-            _sqlConnection.Close();
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
 
         private static void Calculate()

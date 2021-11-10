@@ -19,10 +19,10 @@ namespace RecordBook
     /// </summary>
     public partial class EditingWindow : Window
     {
-        public EditingWindow(ICollection<RecBook> recordBooks)
+        public EditingWindow(ICollection<RecBook> recordBooks, DependencyProperty prop)
         {
             InitializeComponent();
-            DataContext = new EditingViewModel(recordBooks);
+            DataContext = new EditingViewModel(recordBooks, prop);
         }
     }
 }

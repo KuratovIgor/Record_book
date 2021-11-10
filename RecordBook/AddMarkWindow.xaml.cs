@@ -20,10 +20,10 @@ namespace RecordBook
     /// </summary>
     public partial class AddMarkWindow : Window
     {
-        public AddMarkWindow(ICollection<RecBook> recordBooks)
+        public AddMarkWindow(ICollection<RecBook> recordBooks, DependencyProperty prop)
         {
             InitializeComponent();
-            DataContext = new AddMarkViewModel(recordBooks);
+            DataContext = new AddMarkViewModel(recordBooks, prop);
         }
     }
 }

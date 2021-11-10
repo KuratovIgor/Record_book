@@ -15,8 +15,44 @@ using System.Windows.Annotations;
 
 namespace RecordBook
 {
-    public class MainViewModel
+    public class MainViewModel : DependencyObject, INotifyPropertyChanged
     {
+        private static DependencyProperty ChoosenRecordBookProperty = DependencyProperty.Register("ChoosenRecordBook", typeof(string), typeof(MainViewModel));
+        public ObservableCollection<RecBook> RecordBooksChoosen { get; set; } =
+            new ObservableCollection<RecBook> { };
+        public string ChoosenRecordBook
+        {
+            get => GetValue(ChoosenRecordBookProperty) as string;
+            set => SetValue(ChoosenRecordBookProperty, value);
+        }
+        private RelayCommand _filterRecordBookCommand;
+        public RelayCommand FilterRecordBookCommand { get => _filterRecordBookCommand ?? (_filterRecordBookCommand = new RelayCommand(obj => FilterRecordBook())); }
+        private void FilterRecordBook()
+        {
+            RecordBooksChoosen.Clear();
+
+            try
+            {
+                foreach (var item in RecordBooks)
+                {
+                    if (item.FIO.Contains(ChoosenRecordBook) || item.Group.Contains(ChoosenRecordBook) ||
+                        item.Number.Contains(ChoosenRecordBook))
+                    {
+                        RecordBooksChoosen.Add(item);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+
+
+
+
+
         private SqlConnection _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RecordBookDB"].ConnectionString);
 
         private RecBook _current;
@@ -59,6 +95,8 @@ namespace RecordBook
                     UpdateRecords();
                     UpdateDataGrid();
                 }
+
+                OnPropertyChanged(nameof(CurrentRecordBook));
             }
         }
 
@@ -74,6 +112,14 @@ namespace RecordBook
                     UpdateDataGrid();
                 }
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
         public RelayCommand CreateRecordBookCommand { get => _createRecordBookCommand ?? (_createRecordBookCommand = new RelayCommand(obj => CreateRecordBook())); }
@@ -103,6 +149,7 @@ namespace RecordBook
         private void UpdateRecordBooks()
         {
             RecordBooks.Clear();
+            RecordBooksChoosen.Clear();
 
             string command = "select * from Student";
             SqlCommand sqlCommand = new SqlCommand(command, _sqlConnection);
@@ -118,6 +165,7 @@ namespace RecordBook
                     string group = reader.GetValue(4) as string;
 
                     RecordBooks.Add(new RecBook(numberRB, name, course, group, nameZam));
+                    RecordBooksChoosen.Add(new RecBook(numberRB, name, course, group, nameZam));
                 }
             }
         }
@@ -132,7 +180,7 @@ namespace RecordBook
 
         private void AddMark()
         {
-            AddMarkWindow w = new AddMarkWindow(RecordBooks);
+            AddMarkWindow w = new AddMarkWindow(RecordBooks, ChoosenRecordBookProperty);
             w.ShowDialog();
 
             if (CurrentRecordBook != null)
@@ -144,7 +192,7 @@ namespace RecordBook
 
         private void EditMark()
         {
-            EditingWindow w = new EditingWindow(RecordBooks);
+            EditingWindow w = new EditingWindow(RecordBooks, ChoosenRecordBookProperty);
             w.ShowDialog();
 
             if (CurrentRecordBook != null)

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecordBook"
         mc:Ignorable="d"
-        Title="Создание зачётной книги" MinHeight="550" MinWidth="700">
+        Title="Создание зачётной книги" MinHeight="400" MinWidth="700" Height="450" Width="700">
     <Window.DataContext>
         <local:CreateRecodBookViewModel/>
     </Window.DataContext>
@@ -23,25 +23,29 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Column="0" Grid.Row="0" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
-            <TextBlock FontSize="20" Margin="8" Text="ФИО студента" BitmapEffect="{StaticResource ShadowEffect}"/>
-        </Border>
-        <Border Grid.Column="0" Grid.Row="1" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
-            <TextBlock FontSize="20" Margin="8" Text="Номер зачетной книжки" BitmapEffect="{StaticResource ShadowEffect}"/>
-        </Border>
-        <Border Grid.Column="0" Grid.Row="2" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
-            <TextBlock FontSize="20" Margin="8" Text="Курс" BitmapEffect="{StaticResource ShadowEffect}"/>
-        </Border>
-        <Border Grid.Column="0" Grid.Row="3" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
-            <TextBlock FontSize="20" Margin="8" Text="Группа" BitmapEffect="{StaticResource ShadowEffect}"/>
-        </Border>
-        <Border Grid.Column="0" Grid.Row="4" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
-            <TextBlock FontSize="20" Margin="8" Text="ФИО руководителя" BitmapEffect="{StaticResource ShadowEffect}"/>
-        </Border>
+        <TextBlock Grid.Column="0" Grid.Row="0"
+                   FontSize="20" Margin="20"
+                   Text="ФИО студента" 
+                   BitmapEffect="{StaticResource ShadowEffect}"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" 
+                   FontSize="20" Margin="20"
+                   Text="Номер зачетной книжки"
+                   BitmapEffect="{StaticResource ShadowEffect}"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" 
+                   FontSize="20" Margin="20" Text="Курс"
+                   BitmapEffect="{StaticResource ShadowEffect}"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" 
+                   FontSize="20" Margin="20" 
+                   Text="Группа"
+                   BitmapEffect="{StaticResource ShadowEffect}"/>
+        <TextBlock Grid.Column="0" Grid.Row="4"
+                   FontSize="20" Margin="20"
+                   Text="ФИО руководителя" 
+                   BitmapEffect="{StaticResource ShadowEffect}"/>
 
         <ComboBox FontSize="15" HorizontalContentAlignment="Center"
                   Grid.Column="1" Grid.Row="2"
-                  BorderThickness="2" Margin="15"
+                  BorderThickness="2" Margin="20"
                   ItemsSource="{Binding Courses}"
                   SelectedItem="{Binding Course}" 
                   BitmapEffect="{StaticResource ShadowEffect}">

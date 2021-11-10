@@ -75,6 +75,9 @@
     <Compile Include="AddMarkWindow.xaml.cs">
       <DependentUpon>AddMarkWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChooseRecordBookUC.xaml.cs">
+      <DependentUpon>ChooseRecordBookUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreateRecodBookViewModel.cs" />
     <Compile Include="CreateRecordBookWindow.xaml.cs">
       <DependentUpon>CreateRecordBookWindow.xaml</DependentUpon>
@@ -85,9 +88,14 @@
     </Compile>
     <Compile Include="RecBook.cs" />
     <Compile Include="Record.cs" />
+    <Compile Include="RecordBookFilter.cs" />
     <Compile Include="RedDiplomaCalculator.cs" />
     <Compile Include="RelayCommand.cs" />
     <Page Include="AddMarkWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChooseRecordBookUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

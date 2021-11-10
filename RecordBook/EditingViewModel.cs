@@ -13,6 +13,48 @@ namespace RecordBook
 {
     public class EditingViewModel : DependencyObject
     {
+        private static DependencyProperty ChoosenRecordBookProperty;
+
+        public ObservableCollection<RecBook> RecordBooksChoosen { get; set; } =
+            new ObservableCollection<RecBook> { };
+
+        public string ChoosenRecordBook
+        {
+            get => GetValue(ChoosenRecordBookProperty) as string;
+            set => SetValue(ChoosenRecordBookProperty, value);
+        }
+
+        private RelayCommand _filterRecordBookCommand;
+        public RelayCommand FilterRecordBookCommand { get => _filterRecordBookCommand ?? (_filterRecordBookCommand = new RelayCommand(obj => FilterRecordBook())); }
+
+
+        private void FilterRecordBook()
+        {
+            RecordBooksChoosen.Clear();
+
+            try
+            {
+                foreach (var item in RecordBooks)
+                {
+                    if (item.FIO.Contains(ChoosenRecordBook) || item.Group.Contains(ChoosenRecordBook) ||
+                        item.Number.Contains(ChoosenRecordBook))
+                    {
+                        RecordBooksChoosen.Add(item);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+
+
+
+
+
+
         public List<string> Terms { get; set; } = new List<string>
         {
             "1 семестр",
@@ -61,8 +103,9 @@ namespace RecordBook
 
         private RelayCommand _editCommand;
 
-        public ObservableCollection<RecBook> RecordBooks { get; set; } = new ObservableCollection<RecBook> { };
-
+        public ObservableCollection<RecBook> RecordBooks { get; set; } =
+            new ObservableCollection<RecBook> { };
+        
         private RecBook _selectedRB;
         public RecBook SelectedRB
         {
@@ -82,13 +125,15 @@ namespace RecordBook
 
         public RelayCommand EditCommand { get => _editCommand ?? (_editCommand = new RelayCommand(obj => Edit())); }
 
-        public EditingViewModel(ICollection<RecBook> recordBooks)
+        public EditingViewModel(ICollection<RecBook> recordBooks, DependencyProperty prop)
         {
             _sqlConnection.Open();
+            ChoosenRecordBookProperty = prop;
 
             foreach (var item in recordBooks)
             {
                 RecordBooks.Add(item);
+                RecordBooksChoosen.Add(item);
             }
         }
 

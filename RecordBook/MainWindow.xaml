@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecordBook"
         mc:Ignorable="d"
-        Title="Зачетная книга" MinHeight="450" MinWidth="1025">
+        Title="Зачетная книга" MinHeight="650" MinWidth="1200" Height="650" Width="1200">
     <Window.DataContext>
         <local:MainViewModel></local:MainViewModel>
     </Window.DataContext>
     <Grid Background="LightYellow">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="2.2*"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1"
                 Margin="20" Background="LemonChiffon"
@@ -22,11 +22,11 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Content="Оценки"
+                <Button Grid.Row="0" Content="Добавить оценку"
                         Template="{StaticResource btnTemplate}" 
                         Command="{Binding AddMarkCommand}">
                 </Button>
@@ -45,26 +45,46 @@
 
                 <Grid Grid.Row="3">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Выберите зачетную книжку" HorizontalAlignment="Center"/>
-                    <ComboBox Grid.Row="1" BorderThickness="2" Margin="10 0"
-                              ItemsSource="{Binding RecordBooks}"
-                              SelectedItem="{Binding CurrentRecordBook}"
-                              BitmapEffect="{StaticResource ShadowEffect}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Number}"></TextBlock>
-                                    <TextBlock Text=" || "></TextBlock>
-                                    <TextBlock Text="{Binding Group}"></TextBlock>
-                                    <TextBlock Text="||"></TextBlock>
-                                    <TextBlock Text="{Binding FIO}"></TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+
+                    <Label Grid.Row="0" Content="Выберите/найдите зачетную книжку" HorizontalAlignment="Center"/>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 Template="{StaticResource tboxTemplate}"
+                                 Text="{Binding ChoosenRecordBook}"/>
+                        <Button Grid.Column="1" Content="Поиск"
+                                Template="{StaticResource btnTemplate}"
+                                Command="{Binding FilterRecordBookCommand}"/>
+                    </Grid>
+
+                    <GroupBox Grid.Row="2" Header="Зачетные книжки" Margin="10">
+                        <ListBox
+                            ItemsSource="{Binding  RecordBooksChoosen}"
+                            SelectedItem="{Binding CurrentRecordBook}"
+                            Height="150"
+                            BorderBrush="LemonChiffon"
+                            Background="LemonChiffon">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Number}"></TextBlock>
+                                        <TextBlock Text="|| "></TextBlock>
+                                        <TextBlock Text="{Binding Group}"></TextBlock>
+                                        <TextBlock Text="||"></TextBlock>
+                                        <TextBlock Text="{Binding FIO}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </GroupBox>
                 </Grid>
 
                 <Grid Grid.Row="4">
@@ -73,7 +93,8 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="Выберите семестр" HorizontalAlignment="Center"/>
-                    <ComboBox Grid.Row="1" BorderThickness="2" Margin="10 0"
+                    <ComboBox Grid.Row="1" BorderThickness="2" Margin="15 0"
+                              FontSize="15" HorizontalContentAlignment="Center"
                               ItemsSource="{Binding Terms}"
                               SelectedItem="{Binding CurrentTerm}" 
                               BitmapEffect="{StaticResource ShadowEffect}">
@@ -99,30 +120,42 @@
                            HorizontalAlignment="Center" FontSize="20"/>
                 </Border>
 
-                <DataGrid Grid.Row="1" CanUserAddRows="False"
-                          CanUserDeleteRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserResizeColumns="False"
-                          CanUserResizeRows="False"
-                          CanUserSortColumns="False"
+                <DataGrid Grid.Row="1" 
+                          IsReadOnly="True"
+                          ColumnWidth="*"
+                          ColumnHeaderHeight="30"
                           Margin="10"
-                          FontSize="15"
+                          FontSize="13"
+                          HorizontalContentAlignment="Center"
                           ItemsSource="{Binding RBTable[0].DefaultView, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
                 </DataGrid>
                 <Grid Grid.Row="2" Margin="10 0 10 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <Label Content="ФИО студента" FontSize="15"/>
-                        <Label FontSize="15" Width="250" FontFamily="Arial Italic" Content="{Binding Path=CurrentRecordBook.FIO, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Label Content="Cтудент: " FontSize="15"/>
+                        <Label FontSize="15" Content="{Binding Path=CurrentRecordBook.FIO, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Label Content="Курс" FontSize="15"/>
-                        <Label FontSize="15" FontFamily="Arial Italic" Content="{Binding Path=CurrentRecordBook.Course, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-                        <Label Content="Группа" FontSize="15" Margin="20 0 0 0"/>
-                        <Label FontSize="15" FontFamily="Arial Italic" Content="{Binding Path=CurrentRecordBook.Group, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Label Content="Курс: " FontSize="15"/>
+                        <Label FontSize="15" Content="{Binding Path=CurrentRecordBook.Course, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <Label Content="Группа: " FontSize="15"/>
+                        <Label FontSize="15" Content="{Binding Path=CurrentRecordBook.Group, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                        <Label Content="Номер зачетки: " FontSize="15"/>
+                        <Label FontSize="15" Content="{Binding CurrentRecordBook.Number, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Заместитель руководителя: " FontSize="15"/>
+                        <Label FontSize="15" Content="{Binding CurrentRecordBook.NameDeputyHead, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="3" Margin="10" VerticalAlignment="Bottom">
@@ -130,14 +163,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <Label Content="ФИО заместителя руководителя" FontSize="15"/>
-                        <Label FontSize="15" FontFamily="Arial Italic" Content="{Binding CurrentRecordBook.NameDeputyHead, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Label Content="Номер зачетки" FontSize="15"/>
-                        <Label FontSize="15" FontFamily="Arial Italic" Content="{Binding CurrentRecordBook.Number, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-                    </StackPanel>
+                    
                 </Grid>
             </Grid>
         </Border>
