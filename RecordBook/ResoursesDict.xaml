@@ -5,7 +5,7 @@
         <Border Margin="15" 
                 BorderBrush="Black"
                 BorderThickness="1"
-                Background="LemonChiffon">
+                Background="LightGray">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="8" ShadowDepth="3" RenderingBias="Performance"/>
             </Border.Effect>

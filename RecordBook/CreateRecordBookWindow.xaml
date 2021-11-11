@@ -9,7 +9,7 @@
     <Window.DataContext>
         <local:CreateRecodBookViewModel/>
     </Window.DataContext>
-    <Grid Background="LightYellow">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -25,23 +25,18 @@
 
         <TextBlock Grid.Column="0" Grid.Row="0"
                    FontSize="20" Margin="20"
-                   Text="ФИО студента" 
-                   BitmapEffect="{StaticResource ShadowEffect}"/>
+                   Text="ФИО студента" />
         <TextBlock Grid.Column="0" Grid.Row="1" 
                    FontSize="20" Margin="20"
-                   Text="Номер зачетной книжки"
-                   BitmapEffect="{StaticResource ShadowEffect}"/>
+                   Text="Номер зачетной книжки"/>
         <TextBlock Grid.Column="0" Grid.Row="2" 
-                   FontSize="20" Margin="20" Text="Курс"
-                   BitmapEffect="{StaticResource ShadowEffect}"/>
+                   FontSize="20" Margin="20" Text="Курс"/>
         <TextBlock Grid.Column="0" Grid.Row="3" 
                    FontSize="20" Margin="20" 
-                   Text="Группа"
-                   BitmapEffect="{StaticResource ShadowEffect}"/>
+                   Text="Группа"/>
         <TextBlock Grid.Column="0" Grid.Row="4"
                    FontSize="20" Margin="20"
-                   Text="ФИО руководителя" 
-                   BitmapEffect="{StaticResource ShadowEffect}"/>
+                   Text="ФИО руководителя"/>
 
         <ComboBox FontSize="15" HorizontalContentAlignment="Center"
                   Grid.Column="1" Grid.Row="2"

@@ -9,13 +9,13 @@
     <Window.DataContext>
         <local:MainViewModel></local:MainViewModel>
     </Window.DataContext>
-    <Grid Background="LightYellow">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2.2*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1"
-                Margin="20" Background="LemonChiffon"
+        <Border Grid.Column="0" Background="LightGray" BorderBrush="Black" BorderThickness="1"
+                Margin="20"
                 BitmapEffect="{StaticResource ShadowEffect}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -69,9 +69,7 @@
                         <ListBox
                             ItemsSource="{Binding  RecordBooksChoosen}"
                             SelectedItem="{Binding CurrentRecordBook}"
-                            Height="150"
-                            BorderBrush="LemonChiffon"
-                            Background="LemonChiffon">
+                            Height="150" Background="LightGray" BorderBrush="LightGray">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -104,8 +102,7 @@
         </Border>
 
         <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1"
-                Margin="20"
-                BitmapEffect="{StaticResource ShadowEffect}">
+                Margin="20">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -114,7 +111,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Background="Aqua" 
+                <Border Grid.Row="0" Background="LightBlue"
                         BorderBrush="Black" BorderThickness="0 0 0 1">
                     <Label Content="Результаты промежуточной аттестации" 
                            HorizontalAlignment="Center" FontSize="20"/>
@@ -139,7 +136,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
                         <Label Content="Cтудент: " FontSize="15"/>
-                        <Label FontSize="15" Content="{Binding Path=CurrentRecordBook.FIO, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Label FontSize="15" Content="{Binding CurrentRecordBook.FIO, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Label Content="Курс: " FontSize="15"/>

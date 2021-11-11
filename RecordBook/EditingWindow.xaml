@@ -5,21 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecordBook"
         mc:Ignorable="d"
-        Title="Исправление оценок" Height="380" Width="1000" MinHeight="380" MinWidth="1000">
-    <Grid x:Name="Grid" Background="LightYellow">
+        Title="Исправление оценок" Height="380" Width="1100" MinHeight="380" MinWidth="1100">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="2 0">
+        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1"
+                Background="LightGray" Margin="10"
+                BitmapEffect="{StaticResource ShadowEffect}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Background="Aqua" BorderThickness="0 0 0 2" BorderBrush="Black">
+                <Border Grid.Row="0" Background="LightBlue" BorderThickness="0 0 0 2" BorderBrush="Black">
                     <TextBlock Text="Зачетные книжки" FontSize="20" HorizontalAlignment="Center"/>
                 </Border>
 
@@ -41,8 +43,8 @@
                         ItemsSource="{Binding  RecordBooksChoosen}"
                         SelectedItem="{Binding SelectedRB}"
                         Height="180"
-                        BorderBrush="LemonChiffon"
-                        Background="LemonChiffon">
+                        BorderBrush="LightGray"
+                        Background="LightGray">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -73,16 +75,16 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Column="0" Grid.Row="0" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
-                <TextBlock Text="Семестр" FontSize="15" BitmapEffect="{StaticResource ShadowEffect}"/>
+                <TextBlock Text="Семестр" FontSize="15"/>
             </Border>
             <Border Grid.Column="0" Grid.Row="1" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
-                <TextBlock Text="Название предмета" FontSize="15" BitmapEffect="{StaticResource ShadowEffect}"/>
+                <TextBlock Text="Название предмета" FontSize="15"/>
             </Border>
             <Border Grid.Column="0" Grid.Row="2" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
-                <TextBlock Text="Оценка" FontSize="15" BitmapEffect="{StaticResource ShadowEffect}"/>
+                <TextBlock Text="Оценка" FontSize="15"/>
             </Border>
             <Border Grid.Column="0" Grid.Row="3" Margin="20" BorderBrush="Black" BorderThickness="0 0 0 1">
-                <TextBlock Text="Дата выставления" FontSize="15" BitmapEffect="{StaticResource ShadowEffect}"/>
+                <TextBlock Text="Дата выставления" FontSize="15"/>
             </Border>
 
             <ComboBox FontSize="15" HorizontalContentAlignment="Center" 
