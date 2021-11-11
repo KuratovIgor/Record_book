@@ -133,6 +133,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
                         <Label Content="Cтудент: " FontSize="15"/>
@@ -150,7 +151,11 @@
                         <Label Content="Номер зачетки: " FontSize="15"/>
                         <Label FontSize="15" Content="{Binding CurrentRecordBook.Number, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                        <Label Content="Средний балл: " FontSize="15"/>
+                        <Label FontSize="15" Content="{Binding CurrentRecordBook.Avg, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Label Content="Заместитель руководителя: " FontSize="15"/>
                         <Label FontSize="15" Content="{Binding CurrentRecordBook.NameDeputyHead, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     </StackPanel>

@@ -90,11 +90,8 @@ namespace RecordBook
             {
                 _current = value;
 
-                if (CurrentTerm != null)
-                {
-                    UpdateRecords();
-                    UpdateDataGrid();
-                }
+                UpdateRecords();
+                UpdateDataGrid();
 
                 OnPropertyChanged(nameof(CurrentRecordBook));
             }
@@ -107,10 +104,7 @@ namespace RecordBook
             {
                 _currentTerm = value;
 
-                if (CurrentRecordBook != null)
-                {
-                    UpdateDataGrid();
-                }
+                UpdateDataGrid();
             }
         }
 
@@ -214,11 +208,11 @@ namespace RecordBook
                     string numberRB = reader.GetValue(0) as string;
                     string term = reader.GetValue(1) as string;
                     string nameSub = reader.GetValue(2) as string;
-                    int countHours = Convert.ToInt32(reader.GetValue(3) as string);
-                    int mark = Convert.ToInt32(reader.GetValue(3) as string);
-                    DateTime date = Convert.ToDateTime(reader.GetValue(3) as string);
-                    string type = reader.GetValue(3) as string;
-                    string teacher = reader.GetValue(3) as string;
+                    int countHours = Convert.ToInt32(reader.GetValue(3));
+                    int mark = Convert.ToInt32(reader.GetValue(4));
+                    DateTime date = Convert.ToDateTime(reader.GetValue(5) as string);
+                    string type = reader.GetValue(6) as string;
+                    string teacher = reader.GetValue(7) as string;
 
                     Record record = new Record(numberRB, term, nameSub, countHours, mark, date, type, teacher);
 
@@ -227,6 +221,14 @@ namespace RecordBook
                         if (item.Number == numberRB)
                         {
                             item.AddRecord(record);
+                            item.CalculateAvg();
+                            CurrentRecordBook.Avg = item.Avg;
+
+                            CurrentRecordBook.Records.Clear();
+                            foreach (var rec in item.Records)
+                            {
+                                CurrentRecordBook.Records.Add(rec);
+                            }
                             break;
                         }
                     }
