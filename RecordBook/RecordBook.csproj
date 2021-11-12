@@ -71,39 +71,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddMarkViewModel.cs" />
-    <Compile Include="AddMarkWindow.xaml.cs">
+    <Compile Include="ViewModels\AddMarkViewModel.cs" />
+    <Compile Include="Views\AddMarkWindow.xaml.cs">
       <DependentUpon>AddMarkWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ChooseRecordBookUC.xaml.cs">
-      <DependentUpon>ChooseRecordBookUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CreateRecodBookViewModel.cs" />
-    <Compile Include="CreateRecordBookWindow.xaml.cs">
+    <Compile Include="ViewModels\CreateRecodBookViewModel.cs" />
+    <Compile Include="Views\CreateRecordBookWindow.xaml.cs">
       <DependentUpon>CreateRecordBookWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditingViewModel.cs" />
-    <Compile Include="EditingWindow.xaml.cs">
+    <Compile Include="ViewModels\EditingViewModel.cs" />
+    <Compile Include="Views\EditingWindow.xaml.cs">
       <DependentUpon>EditingWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RecBook.cs" />
-    <Compile Include="Record.cs" />
-    <Compile Include="RecordBookFilter.cs" />
-    <Compile Include="RedDiplomaCalculator.cs" />
-    <Compile Include="RelayCommand.cs" />
-    <Page Include="AddMarkWindow.xaml">
+    <Compile Include="Models\RecBook.cs" />
+    <Compile Include="Models\Record.cs" />
+    <Compile Include="Models\RedDiplomaCalculator.cs" />
+    <Compile Include="Models\RelayCommand.cs" />
+    <Compile Include="ViewModels\SharedResources.cs" />
+    <Page Include="Views\AddMarkWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ChooseRecordBookUC.xaml">
+    <Page Include="Views\CreateRecordBookWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CreateRecordBookWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EditingWindow.xaml">
+    <Page Include="Views\EditingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,7 +108,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -172,5 +165,6 @@
       <DependentUpon>RecordBookDB.mdf</DependentUpon>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

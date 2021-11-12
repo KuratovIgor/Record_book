@@ -16,18 +16,42 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="FontSize"  Value="15"></Setter>
+                <Setter Property="FontWeight"  Value="Bold"></Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    <ControlTemplate TargetType="TextBox" x:Key="tboxTemplate">
-        <TextBox BorderBrush="Black" BorderThickness="1"
-                 FontSize="15"
-                 HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center"
-                 Margin="20"
-                 Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                 BitmapEffect="{StaticResource ShadowEffect}">
-        </TextBox>
-    </ControlTemplate>
+
+
+    <Style TargetType="TextBox">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="20"/>
+        <Setter Property="BitmapEffect" Value="{StaticResource ShadowEffect}"/>
+    </Style>
+
+    <Style TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
+
+    <Style TargetType="Border" x:Key="TextBorderStyle">
+        <Setter Property="Margin" Value="20"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="0 0 0 1"/>
+    </Style>
+    
+    <Style TargetType="Border" x:Key="MainBorderStyle">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BitmapEffect" Value="{StaticResource ShadowEffect}"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Background" Value="LightGray"/>
+    </Style>
+
+    <Style TargetType="ComboBox">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="20"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BitmapEffect" Value="{StaticResource ShadowEffect}"/>
+    </Style>
 </ResourceDictionary>

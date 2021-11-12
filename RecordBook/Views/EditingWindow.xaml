@@ -1,0 +1,99 @@
+﻿<Window x:Class="RecordBook.EditingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RecordBook"
+        mc:Ignorable="d"
+        Title="Исправление оценок" Height="380" Width="1100" MinHeight="380" MinWidth="1100">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Style="{StaticResource MainBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Background="LightBlue" BorderThickness="0 0 0 2" BorderBrush="Black">
+                    <TextBlock Text="Зачетные книжки" FontSize="20" HorizontalAlignment="Center"/>
+                </Border>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Text="{Binding ChoosenRecordBook}"/>
+                    <Button Grid.Column="1" Content="Поиск"
+                            Template="{StaticResource btnTemplate}"
+                            Command="{Binding FilterRecordBookCommand}"/>
+                </Grid>
+
+                <GroupBox Grid.Row="2" Header="Зачетные книжки" Margin="10">
+                    <ListBox
+                        ItemsSource="{Binding  RecordBooksChoosen}"
+                        SelectedItem="{Binding SelectedRB}"
+                        Height="180"
+                        BorderBrush="LightGray"
+                        Background="LightGray">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Number}" Style="{x:Null}"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Group}" Style="{x:Null}"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding FIO}" Style="{x:Null}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </GroupBox>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="0" Style="{StaticResource TextBorderStyle}">
+                <TextBlock Text="Семестр"/>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="1" Style="{StaticResource TextBorderStyle}">
+                <TextBlock Text="Название предмета"/>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="2" Style="{StaticResource TextBorderStyle}">
+                <TextBlock Text="Оценка"/>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="3" Style="{StaticResource TextBorderStyle}">
+                <TextBlock Text="Дата выставления"/>
+            </Border>
+
+            <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Terms}" SelectedItem="{Binding CurrentTerm}"/>
+            <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Subjects}" SelectedItem="{Binding Subject}"/>
+            <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Marks}" SelectedItem="{Binding Mark}"/>
+           
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Date}"/>
+
+            <Button Grid.Row="4" Grid.Column="1" Content="Внести оценку" Template="{StaticResource btnTemplate}" Command="{Binding EditCommand}"/>
+        </Grid>
+    </Grid>
+</Window>
