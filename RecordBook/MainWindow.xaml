@@ -26,7 +26,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" Content="Добавить оценку" Template="{DynamicResource TemplateButton}" Command="{Binding AddMarkCommand}"/>
+                <Button Grid.Row="0" Content="Поставить оценку" Template="{DynamicResource TemplateButton}" Command="{Binding AddMarkCommand}"/>
                 <Button Grid.Row="1" Content="Редактирование" Template="{DynamicResource TemplateButton}" Command="{Binding EditCommand}"/>
                 <Button Grid.Row="2" Content="Красный диплом" Template="{DynamicResource TemplateButton}" Command="{Binding CalculateProbabilityCommand}"/>
 
