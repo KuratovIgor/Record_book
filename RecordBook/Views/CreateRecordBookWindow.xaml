@@ -9,7 +9,7 @@
     <Window.DataContext>
         <local:CreateRecodBookViewModel/>
     </Window.DataContext>
-    <Grid>
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -22,6 +22,10 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource tbStyle}"></Style>
+        </Grid.Resources>
 
         <Border Grid.Column="0" Grid.Row="0" Style="{StaticResource TextBorderStyle}">
             <TextBlock Text="ФИО студента" />
@@ -39,13 +43,13 @@
             <TextBlock Text="ФИО руководителя"/>
         </Border>
 
-        <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Courses}" SelectedItem="{Binding Course}"/>
+        <ComboBox Grid.Column="1" Grid.Row="2" Margin="10" Template="{DynamicResource TemplateComboBox}"  ItemsSource="{Binding Courses}" SelectedItem="{Binding Course}"/>
        
-        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Fio}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding  NumberRecordBook}"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Group}"/>
-        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding  FioZam}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Template="{DynamicResource TemplateTextBox}"  Text="{Binding Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Template="{DynamicResource TemplateTextBox}" Text="{Binding  NumberRecordBook, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Template="{DynamicResource TemplateTextBox}" Text="{Binding Group, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Template="{DynamicResource TemplateTextBox}" Text="{Binding  FioZam, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-        <Button Grid.Column="1" Grid.Row="5" Content="Создать" FontSize="20" Command="{Binding CreateCommand}" Template="{StaticResource btnTemplate}"/>
+        <Button Grid.Column="1" Grid.Row="5" Content="Создать" FontSize="20" Command="{Binding CreateCommand}" Template="{DynamicResource TemplateButton}"/>
     </Grid>
 </Window>

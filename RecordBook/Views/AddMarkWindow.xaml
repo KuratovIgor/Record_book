@@ -6,21 +6,26 @@
         xmlns:local="clr-namespace:RecordBook"
         mc:Ignorable="d"
         Title="Выставление оценок" MinHeight="550" MinWidth="1100" Height="550" Width="1100">
-    <Grid>
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Style="{StaticResource MainBorderStyle}">
+        <Grid.Resources>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource tbStyle}"></Style>
+        </Grid.Resources>
+
+        <Border Grid.Column="0" Style="{StaticResource MainBorderStyle}" CornerRadius="10">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Background="LightBlue" BorderThickness="0 0 0 2" BorderBrush="Black">
-                    <TextBlock Text="Зачетные книжки" FontSize="20" HorizontalAlignment="Center"/>
+                <Border Grid.Row="0" CornerRadius="10" Background="#33CEC3" BorderThickness="0 0 0 2" BorderBrush="Black">
+                    <TextBlock Text="Зачетные книжки" HorizontalAlignment="Center"/>
                 </Border>
 
                 <Grid Grid.Row="1">
@@ -28,20 +33,23 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0"
-                             Text="{Binding ChoosenRecordBook}"/>
-                    <Button Grid.Column="1" Content="Поиск"
-                            Template="{StaticResource btnTemplate}"
-                            Command="{Binding FilterRecordBookCommand}"/>
+                    <TextBox Grid.Column="0" Text="{Binding ChoosenRecordBook}" Template="{DynamicResource TemplateTextBox}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter"
+                                        Command="{Binding FilterRecordBookCommand}"
+                                        CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}"></KeyBinding>
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Button Grid.Column="1" Content="Поиск" Template="{DynamicResource TemplateButton}" Command="{Binding FilterRecordBookCommand}"/>
                 </Grid>
 
-                <GroupBox Grid.Row="2" Header="Зачетные книжки" Margin="10">
+                <GroupBox Grid.Row="2" Header="Зачетные книжки">
                     <ListBox
                         ItemsSource="{Binding  RecordBooksChoosen}"
                         SelectedItem="{Binding SelectedRB}"
                         Height="180"
-                        BorderBrush="LightGray"
-                        Background="LightGray">
+                        BorderBrush="#6C8CD5"
+                        Background="#6C8CD5">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -50,14 +58,20 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding Number}" Style="{x:Null}"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding Group}" Style="{x:Null}"/>
-                                    <TextBlock Grid.Column="2" Text="{Binding FIO}" Style="{x:Null}"/>
+                                    <TextBlock Grid.Column="0" Foreground="White" Text="{Binding Number}"/>
+                                    <TextBlock Grid.Column="1" Foreground="White" Text="{Binding Group}"/>
+                                    <TextBlock Grid.Column="2" Foreground="White" Text="{Binding FIO}"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </GroupBox>
+
+                <StackPanel Grid.Row="3" Orientation="Vertical">
+                    <TextBlock Foreground="White" Text="Студент: " Margin="10 0 0 0"/>
+                    <TextBlock Foreground="White" Margin="30 0 0 0" Text="{Binding SelectedRB.FIO, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    <TextBlock Foreground="White" Margin="30 0 0 0" Text="{Binding SelectedRB.Group, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                </StackPanel>
             </Grid>
         </Border>
 
@@ -69,7 +83,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="65.333"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -78,37 +92,38 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Column="0" Grid.Row="0" Style="{StaticResource TextBorderStyle}">
-                <TextBlock Text="Семестр"/>
+                <TextBlock Text="Семестр" />
             </Border>
             <Border Grid.Column="0" Grid.Row="1" Style="{StaticResource TextBorderStyle}">
-                <TextBlock Text="Название предмета"/>
+                <TextBlock Text="Название предмета" 
+                           />
             </Border>
             <Border Grid.Column="0" Grid.Row="2" Style="{StaticResource TextBorderStyle}">
-                <TextBlock Text="Количество часов"/>
+                <TextBlock Text="Количество часов" />
             </Border>
             <Border Grid.Column="0" Grid.Row="3" Style="{StaticResource TextBorderStyle}">
-                <TextBlock Text="Оценка"/>
+                <TextBlock Text="Оценка" />
             </Border>
             <Border Grid.Column="0" Grid.Row="4" Style="{StaticResource TextBorderStyle}">
-                <TextBlock Text="Дата выставления"/>
+                <TextBlock Text="Дата выставления" />
             </Border>
             <Border Grid.Column="0" Grid.Row="5" Style="{StaticResource TextBorderStyle}">
-                <TextBlock Text="Тип сдачи"/>
+                <TextBlock Text="Тип сдачи" />
             </Border>
             <Border Grid.Column="0" Grid.Row="6" Style="{StaticResource TextBorderStyle}">
-                <TextBlock Text="ФИО преподавателя"/>
+                <TextBlock Text="ФИО преподавателя" />
             </Border>
 
-            <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Terms}" SelectedItem="{Binding CurrentTerm}"/>
-            <ComboBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding Marks}" SelectedItem="{Binding Mark}"/>
-            <ComboBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding Types}" SelectedItem="{Binding Type}"/>
+            <ComboBox Grid.Column="1" Grid.Row="0" Margin="10" Template="{DynamicResource TemplateComboBox}" ItemsSource="{Binding Terms}" SelectedItem="{Binding CurrentTerm}"/>
+            <ComboBox Grid.Column="1" Grid.Row="3" Margin="10" Template="{DynamicResource TemplateComboBox}" ItemsSource="{Binding Marks}" SelectedItem="{Binding Mark}"/>
+            <ComboBox Grid.Column="1" Grid.Row="5" Margin="10" Template="{DynamicResource TemplateComboBox}" ItemsSource="{Binding Types}" SelectedItem="{Binding Type}"/>
 
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding NameSubject}"/>
-            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding CountHours}"/>
-            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Date}"/>
-            <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Teacher}"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Template="{DynamicResource TemplateTextBox}" Text="{Binding NameSubject, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Template="{DynamicResource TemplateTextBox}" Text="{Binding CountHours , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Grid.Column="1" Grid.Row="4" Template="{DynamicResource TemplateTextBox}" Text="{Binding Date , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Grid.Column="1" Grid.Row="6" Template="{DynamicResource TemplateTextBox}" Text="{Binding Teacher , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            <Button Grid.Row="7" Grid.Column="1" Content="Внести оценку" Template="{StaticResource btnTemplate}" Command="{Binding AddMarkCommand}"/>
+            <Button Grid.Row="7" Grid.Column="1" Content="Внести оценку" Template="{DynamicResource TemplateButton}" Command="{Binding AddMarkCommand}"/>
         </Grid>
     </Grid>
 </Window>

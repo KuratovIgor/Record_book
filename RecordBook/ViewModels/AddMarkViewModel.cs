@@ -22,32 +22,9 @@ namespace RecordBook
             "Зачет", "Диф.зачет", "Экзамен", "Курсовой проект"
         };
 
-        private string _currentTerm;
-        public string CurrentTerm
-        {
-            get => _currentTerm;
-            set => _currentTerm = value;
-        }
-
-        private string _mark;
-        public string Mark
-        {
-            get => _mark;
-            set => _mark = value;
-        }
-
-        private string _type;
-
-        public string Type
-        {
-            get => _type;
-            set => _type = value;
-        }
-
-        private static readonly DependencyProperty NameSubjectProperty = DependencyProperty.Register("NameSubject", typeof(string), typeof(AddMarkViewModel));
-        private static readonly DependencyProperty CountHoursProperty = DependencyProperty.Register("CountHours", typeof(string), typeof(AddMarkViewModel));
-        private static readonly DependencyProperty DateProperty = DependencyProperty.Register("Date", typeof(string), typeof(AddMarkViewModel));
-        private static readonly DependencyProperty TeacherProperty = DependencyProperty.Register("Teacher", typeof(string), typeof(AddMarkViewModel));
+        public string CurrentTerm { get; set; }
+        public string Mark { get; set; }
+        public string Type { get; set; }
 
         private RelayCommand _addMarkCommand;
 
@@ -55,31 +32,57 @@ namespace RecordBook
         public RecBook SelectedRB
         {
             get => _selectedRB;
-            set => _selectedRB = value;
+            set
+            {
+                _selectedRB = value; 
+                SetTerms();
+                OnPropertyChanged(nameof(SelectedRB));
+            }
         }
+
+        private string _name;
+        private string _countHours;
+        private string _date;
+        private string _teacher;
 
         public string NameSubject
         {
-            get => (string)GetValue(NameSubjectProperty);
-            set => SetValue(NameSubjectProperty, (value));
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(NameSubject));
+            }
         }
 
         public string CountHours
         {
-            get => (string)GetValue(CountHoursProperty);
-            set => SetValue(CountHoursProperty, (value));
+            get => _countHours;
+            set
+            {
+                _countHours = value;
+                OnPropertyChanged(nameof(CountHours));
+            }
         }
 
         public string Date
         {
-            get => (string) GetValue(DateProperty);
-            set => SetValue(DateProperty, (value));
+            get => _date;
+            set
+            {
+                _date = value;
+                OnPropertyChanged(nameof(Date));
+            }
         }
 
         public string Teacher
         {
-            get => (string)GetValue(TeacherProperty);
-            set => SetValue(TeacherProperty, (value));
+            get => _teacher;
+            set
+            {
+                _teacher = value;
+                OnPropertyChanged(nameof(Teacher));
+            }
         }
 
         public AddMarkViewModel(ICollection<RecBook> recordBooks)
@@ -92,13 +95,28 @@ namespace RecordBook
                 RecordBooksChoosen.Add(item);
             }
         }
+        private void SetTerms()
+        {
+            Terms.Clear();
+            for (int i = 1; i <= SelectedRB.Course * 2; i++)
+            {
+                Terms.Add($"{i} семестр");
+            }
+        }
 
         public void Add()
         {
-            SelectedRB.AddMark(CurrentTerm, NameSubject, Convert.ToInt32(CountHours), Mark, Date, Type, Teacher);
+            try
+            {
+                SelectedRB.AddMark(CurrentTerm, NameSubject, Convert.ToInt32(CountHours), Mark, Date, Type, Teacher);
 
-            var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
-            window.Close();
+                var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+                window.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Введите данные!");
+            }
         }
 
         public RelayCommand AddMarkCommand { get => _addMarkCommand ?? (_addMarkCommand = new RelayCommand(obj => Add())); }

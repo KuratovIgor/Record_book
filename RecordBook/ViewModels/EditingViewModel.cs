@@ -24,7 +24,11 @@ namespace RecordBook
         public string CurrentTerm
         {
             get => _currentTerm;
-            set => _currentTerm = value;
+            set
+            {
+                _currentTerm = value;
+                SetSubjects();
+            }
         }
 
         private string _mark;
@@ -34,14 +38,7 @@ namespace RecordBook
             set => _mark = value;
         }
 
-        private string _subject;
-        public string Subject
-        {
-            get => _subject;
-            set => _subject = value;
-        }
-
-        private static readonly DependencyProperty DateProperty = DependencyProperty.Register("Date", typeof(string), typeof(EditingViewModel));
+        public string Subject { get; set; }
 
         private RelayCommand _editCommand;
 
@@ -53,14 +50,20 @@ namespace RecordBook
             set
             {
                 _selectedRB = value;
-                SetSubjects();
+                SetTerms();
+                OnPropertyChanged(nameof(SelectedRB));
             }
         }
 
+        private string _date;
         public string Date
         {
-            get => (string)GetValue(DateProperty);
-            set => SetValue(DateProperty, (value));
+            get => _date;
+            set
+            {
+                _date = value;
+                OnPropertyChanged(nameof(Date));
+            }
         }
 
         public RelayCommand EditCommand { get => _editCommand ?? (_editCommand = new RelayCommand(obj => Edit())); }
@@ -78,7 +81,7 @@ namespace RecordBook
 
         private void SetSubjects()
         {
-            string command = $"select distinct [Название предмета] from Marks where [Номер зачетки] = N'{SelectedRB.Number}'";
+            string command = $"select distinct [Название предмета] from Marks where [Номер зачетки] = N'{SelectedRB.Number}' and Семестр=N'{CurrentTerm}'";
 
             SqlCommand sqlCommand = new SqlCommand(command, _sqlConnection);
 
@@ -88,6 +91,22 @@ namespace RecordBook
                 while (reader.Read())
                 {
                     Subjects.Add(reader.GetValue(0) as string);
+                }
+            }
+        }
+
+        private void SetTerms()
+        {
+            string command = $"select distinct [Семестр] from Marks where [Номер зачетки] = N'{SelectedRB.Number}'";
+
+            SqlCommand sqlCommand = new SqlCommand(command, _sqlConnection);
+
+            Terms.Clear();
+            using (SqlDataReader reader = sqlCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Terms.Add(reader.GetValue(0) as string);
                 }
             }
         }

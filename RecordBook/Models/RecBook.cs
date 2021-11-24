@@ -25,10 +25,41 @@ namespace RecordBook
 
         private double _avg;
 
-        public string FIO { get; set; }
+        private string _fio;
+
+        public string FIO
+        {
+            get => _fio;
+            set
+            {
+                _fio = value;
+                OnPropertyChanged(nameof(FIO));
+            }
+        }
+
         public string Number { get; set; }
-        public int Course { get; set; }
-        public string Group { get; set; }
+
+        private int _course;
+        public int Course
+        {
+            get => _course;
+            set
+            {
+                _course = value;
+                OnPropertyChanged(nameof(Course));
+            }
+        }
+
+        private string _group;
+        public string Group
+        {
+            get => _group;
+            set
+            {
+                _group = value;
+                OnPropertyChanged(nameof(Group));
+            }
+        }
         public string NameDeputyHead { get; set; }
 
         public double Avg
@@ -132,6 +163,26 @@ namespace RecordBook
             SqlCommand sqlCommand = new SqlCommand(command, _sqlConnection);
             UpdateRecords();
             MessageBox.Show($"Исправление даты({sqlCommand.ExecuteNonQuery().ToString()})");
+        }
+
+        public void ToNextCourse()
+        {
+            if (Course < 5)
+            {
+                Course++;
+
+                string command = $"update Student set Курс = {Course} where [Номер зачетки] = N'{Number}'";
+                SqlCommand sqlCommand = new SqlCommand(command, _sqlConnection);
+                sqlCommand.ExecuteNonQuery();
+
+                UpdateRecords();
+
+                MessageBox.Show($"Студент {FIO} переведен на {Course} курс!");
+            }
+            else
+            {
+                MessageBox.Show("Студент учится на выпускном курсе!");
+            }
         }
 
         public void CalculateAvg()

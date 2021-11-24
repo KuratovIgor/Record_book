@@ -1,60 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Documents;
 
 namespace RecordBook
 {
-    public class CreateRecodBookViewModel : DependencyObject
+    public class CreateRecodBookViewModel : INotifyPropertyChanged
     {
+        private string _fio;
+        private string _numbrerRB;
+        private string _course;
+        private string _fioZam;
+        private string _group;
+
         public List<string> Courses { get; set; } = new List<string>
         {
-            "1", "2", "3", "4"
+            "1", "2", "3", "4", "5"
         };
 
         private SqlConnection _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["RecordBookDB"].ConnectionString);
-
-        private static readonly DependencyProperty FioProperty = DependencyProperty.Register("Fio", typeof(string), typeof(CreateRecodBookViewModel));
-        private static readonly DependencyProperty NumberRBProperty = DependencyProperty.Register("NumberRecordBook", typeof(string), typeof(CreateRecodBookViewModel));
-        private static readonly DependencyProperty GroupProperty = DependencyProperty.Register("Group", typeof(string), typeof(CreateRecodBookViewModel));
-        private static readonly DependencyProperty FioZamProperty = DependencyProperty.Register("FioZam", typeof(string), typeof(CreateRecodBookViewModel));
 
         private RelayCommand _createCommand;
 
         public string Fio
         {
-            get => (string) GetValue(FioProperty);
-            set => SetValue(FioProperty, (value));
+            get => _fio;
+            set
+            {
+                _fio = value;
+                OnPropertyChanged(nameof(Fio));
+            }
         }
 
         public string NumberRecordBook
         {
-            get => (string)GetValue(NumberRBProperty);
-            set => SetValue(NumberRBProperty, (value));
+            get => _numbrerRB;
+            set
+            {
+                _numbrerRB = value;
+                OnPropertyChanged(nameof(NumberRecordBook));
+            }
         }
 
-        private string _course;
         public string Course
         {
             get => _course;
-            set => _course = value;
+            set
+            {
+                _course = value;
+                OnPropertyChanged(nameof(Course));
+            }
         }
 
         public string FioZam
         {
-            get => (string)GetValue(FioZamProperty);
-            set => SetValue(FioZamProperty, (value));
+            get => _fioZam;
+            set
+            {
+                _fioZam = value;
+                OnPropertyChanged(nameof(FioZam));
+            }
         }
 
         public string Group
         {
-            get => (string)GetValue(GroupProperty);
-            set => SetValue(GroupProperty, (value));
+            get => _group;
+            set
+            {
+                _group = value;
+                OnPropertyChanged(nameof(Group));
+            }
         }
 
         public CreateRecodBookViewModel()
@@ -80,8 +102,17 @@ namespace RecordBook
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show("Невозможно создать зачетку! Возможно, данные не введены, или введены не корректно.");
             }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

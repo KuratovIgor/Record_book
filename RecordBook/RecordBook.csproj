@@ -50,6 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -76,6 +77,9 @@
       <DependentUpon>AddMarkWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CreateRecodBookViewModel.cs" />
+    <Compile Include="Views\AgreeWindow.xaml.cs">
+      <DependentUpon>AgreeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateRecordBookWindow.xaml.cs">
       <DependentUpon>CreateRecordBookWindow.xaml</DependentUpon>
     </Compile>
@@ -89,6 +93,10 @@
     <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="ViewModels\SharedResources.cs" />
     <Page Include="Views\AddMarkWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AgreeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecordBook"
         mc:Ignorable="d"
-        Title="Зачетная книга" MinHeight="650" MinWidth="1200" Height="650" Width="1200">
+        Title="Зачетная книга" MinHeight="650" MinWidth="1200" Height="650" Width="1200" WindowState="Maximized">
     <Window.DataContext>
         <local:MainViewModel></local:MainViewModel>
     </Window.DataContext>
-    <Grid>
+    <Grid Background="LightBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2.2*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" Style="{StaticResource MainBorderStyle}">
+        <Border CornerRadius="10" Grid.Column="0" Style="{StaticResource MainBorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -23,23 +23,12 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Content="Добавить оценку"
-                        Template="{StaticResource btnTemplate}" 
-                        Command="{Binding AddMarkCommand}">
-                </Button>
-                <Button Grid.Row="1" Content="Редактирование"
-                        Template="{StaticResource btnTemplate}"
-                        Command="{Binding EditCommand}">
-                </Button>
-                <Button Grid.Row="2" Content="Красный диплом" 
-                        Template="{StaticResource btnTemplate}"
-                        Command="{Binding CalculateProbabilityCommand}">
-                </Button>
-                <Button Grid.Row="5" Content="Создать зачетку"
-                        Template="{StaticResource btnTemplate}" 
-                        Command="{Binding CreateRecordBookCommand}">
-                </Button>
+
+                <Button Grid.Row="0" Content="Добавить оценку" Template="{DynamicResource TemplateButton}" Command="{Binding AddMarkCommand}"/>
+                <Button Grid.Row="1" Content="Редактирование" Template="{DynamicResource TemplateButton}" Command="{Binding EditCommand}"/>
+                <Button Grid.Row="2" Content="Красный диплом" Template="{DynamicResource TemplateButton}" Command="{Binding CalculateProbabilityCommand}"/>
 
                 <Grid Grid.Row="3">
                     <Grid.RowDefinitions>
@@ -48,7 +37,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Content="Выберите/найдите зачетную книжку" HorizontalAlignment="Center"/>
+                    <Label Foreground="White" Grid.Row="0" Content="Выберите/найдите зачетную книжку" HorizontalAlignment="Center"/>
 
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -56,17 +45,22 @@
                             <ColumnDefinition Width="0.5*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Column="0"
-                                 Text="{Binding ChoosenRecordBook}"/>
-                        <Button Grid.Column="1" Content="Поиск"
-                                Template="{StaticResource btnTemplate}"
-                                Command="{Binding FilterRecordBookCommand}"/>
+                                 Text="{Binding ChoosenRecordBook}"
+                                 AcceptsReturn="False" Template="{DynamicResource TemplateTextBox}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Enter"
+                                            Command="{Binding FilterRecordBookCommand}"
+                                            CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}"></KeyBinding>
+                            </TextBox.InputBindings>
+                        </TextBox>
+                        <Button Grid.Column="1" Content="Поиск" Template="{DynamicResource TemplateButton}" Command="{Binding FilterRecordBookCommand}"/>
                     </Grid>
 
-                    <GroupBox Grid.Row="2" Header="Зачетные книжки" Margin="10">
-                        <ListBox
+                    <GroupBox Grid.Row="2" Header="Зачетные книжки">
+                        <ListBox Background="#6C8CD5" BorderBrush="#6C8CD5"
                             ItemsSource="{Binding  RecordBooksChoosen}"
                             SelectedItem="{Binding CurrentRecordBook}"
-                            Height="150" Background="LightGray" BorderBrush="LightGray">
+                            Height="150" FontFamily="Futura PT Book Italic">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -75,9 +69,9 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding Number}" Style="{x:Null}"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding Group}" Style="{x:Null}"/>
-                                        <TextBlock Grid.Column="2" Text="{Binding FIO}" Style="{x:Null}"/>
+                                        <TextBlock Foreground="White" Grid.Column="0" Text="{Binding Number}"/>
+                                        <TextBlock Foreground="White" Grid.Column="1" Text="{Binding Group}"/>
+                                        <TextBlock Foreground="White" Grid.Column="2" Text="{Binding FIO}"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -85,36 +79,39 @@
                     </GroupBox>
                 </Grid>
 
-                <Grid Grid.Row="4">
+                <Button Grid.Row="4" Template="{DynamicResource TemplateButton}"  Command="{Binding ToNextCourseCommand}" Content="Перевести на след.курс"/>
+
+                <Grid Grid.Row="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Выберите семестр" HorizontalAlignment="Center"/>
-                    <ComboBox Grid.Row="1" BorderThickness="2" Margin="15 0"
+                    <Label Grid.Row="0" Foreground="White" Content="Выберите семестр" HorizontalAlignment="Center" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                    <ComboBox Grid.Row="1" Margin="15 0"
                               FontSize="15" HorizontalContentAlignment="Center"
-                              ItemsSource="{Binding Terms}"
+                              ItemsSource="{Binding Terms, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                               SelectedItem="{Binding CurrentTerm}" 
-                              BitmapEffect="{StaticResource ShadowEffect}">
+                              Template="{DynamicResource TemplateComboBox}">
                     </ComboBox>
                 </Grid>
+
+                <Button Grid.Row="6" Content="Создать зачетку" Template="{DynamicResource TemplateButton}" Command="{Binding CreateRecordBookCommand}"/>
             </Grid>
         </Border>
 
-        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1"
-                Margin="20">
+        <Border CornerRadius="10" Grid.Column="1" BorderBrush="Black" BorderThickness="1"
+                Margin="10" Background="White">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Background="LightBlue"
+                <Border CornerRadius="10" Grid.Row="0" Background="#33CEC3"
                         BorderBrush="Black" BorderThickness="0 0 0 1">
-                    <Label Content="Результаты промежуточной аттестации" 
-                           HorizontalAlignment="Center" FontSize="20"/>
+                    <Label Content="Результаты промежуточной аттестации" FontSize="20"
+                           HorizontalAlignment="Center"/>
                 </Border>
 
                 <DataGrid Grid.Row="1" 
@@ -123,6 +120,7 @@
                           ColumnHeaderHeight="30"
                           Margin="10"
                           FontSize="13"
+                          FontFamily="Futura PT Book Italic"
                           HorizontalContentAlignment="Center"
                           ItemsSource="{Binding RBTable[0].DefaultView, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
                 </DataGrid>
@@ -136,36 +134,39 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
-                        <Label Content="Cтудент: " FontSize="15"/>
-                        <Label FontSize="15" Content="{Binding CurrentRecordBook.FIO, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Label Content="Cтудент: "/>
+                        <Label Content="{Binding CurrentRecordBook.FIO, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <Label Content="Курс: " FontSize="15"/>
-                        <Label FontSize="15" Content="{Binding Path=CurrentRecordBook.Course, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Label Content="Курс: "/>
+                        <Label Content="{Binding Path=CurrentRecordBook.Course, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        <Label Content="Группа: " FontSize="15"/>
-                        <Label FontSize="15" Content="{Binding Path=CurrentRecordBook.Group, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Label Content="Группа: "/>
+                        <Label Content="{Binding Path=CurrentRecordBook.Group, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Orientation="Horizontal">
-                        <Label Content="Номер зачетки: " FontSize="15"/>
-                        <Label FontSize="15" Content="{Binding CurrentRecordBook.Number, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Label Content="Номер зачетки: "/>
+                        <Label Content="{Binding CurrentRecordBook.Number, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
-                        <Label Content="Средний балл: " FontSize="15"/>
-                        <Label FontSize="15" Content="{Binding CurrentRecordBook.Avg, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Label Content="Средний балл: "/>
+                        <Label Content="{Binding CurrentRecordBook.Avg, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Label Content="Заместитель руководителя: " FontSize="15"/>
-                        <Label FontSize="15" Content="{Binding CurrentRecordBook.NameDeputyHead, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <Label Content="Заместитель руководителя: "/>
+                        <Label Content="{Binding CurrentRecordBook.NameDeputyHead, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     </StackPanel>
                 </Grid>
-                <Grid Grid.Row="3" Margin="10" VerticalAlignment="Bottom">
+
+                <Grid Grid.Row="3" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    
+                    <Button Grid.Column="0" Template="{DynamicResource TemplateButton}"  Command="{Binding OpenPrevTermCommand}" Content="Предыдущий"/>
+                    <Button Grid.Column="2" Template="{DynamicResource TemplateButton}"  Command="{Binding OpenNextTermCommand}" Content="Следующий"/>
                 </Grid>
             </Grid>
         </Border>
