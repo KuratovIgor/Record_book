@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecordBook"
         mc:Ignorable="d"
-        Title="Исправление оценок" Height="440" Width="1100" MinHeight="440" MinWidth="1100">
+        Title="Исправление оценок" Height="460" Width="1150" MinHeight="460" MinWidth="1150">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -42,9 +42,22 @@
                                         CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}"></KeyBinding>
                         </TextBox.InputBindings>
                     </TextBox>
-                    <Button Grid.Column="1" Content="Поиск"
+                    <Button Grid.Column="1"
                             Template="{DynamicResource TemplateButton}"
-                            Command="{Binding FilterRecordBookCommand}"/>
+                            Command="{Binding FilterRecordBookCommand}">
+                        <Button.Content>
+                            <Image Source="../img/loupe.png" RenderTransformOrigin="0.571,0.617" Height="24" Width="41">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="-1"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                        </Button.Content>
+                    </Button>
                 </Grid>
 
                 <GroupBox Grid.Row="2" Foreground="White" Header="Зачетные книжки" Margin="10">

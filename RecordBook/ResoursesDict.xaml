@@ -48,13 +48,14 @@
     </Style>
 
     <Style TargetType="GroupBox">
+        <Setter Property="FontSize" Value="15"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontFamily" Value="Futura PT Book Italic"/>
         <Setter Property="Margin" Value="10"/>
     </Style>
 
     <ControlTemplate x:Key="TemplateComboBox" TargetType="{x:Type ComboBox}">
-        <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
+        <Grid x:Name="templateRoot" SnapsToDevicePixels="True" Margin="15 4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
@@ -225,7 +226,7 @@
 
 
     <ControlTemplate x:Key="TemplateTextBox" TargetType="{x:Type TextBoxBase}">
-        <Border x:Name="border" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+        <Border x:Name="border" Margin="15 4" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
             <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
         </Border>
         <ControlTemplate.Triggers>
@@ -243,17 +244,22 @@
 
 
     <ControlTemplate x:Key="TemplateButton" TargetType="{x:Type Button}">
-        <Border Margin="15" 
+        <Border Margin="30 15" 
             BorderBrush="Black"
             BorderThickness="1"
-            CornerRadius="10"
-            Background="#4671D5">
+            CornerRadius="10">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#4671D5" Offset="1"></GradientStop>
+                    <GradientStop Color="#6A48D7"></GradientStop>
+                </LinearGradientBrush>
+            </Border.Background>
             <ContentControl Content="{TemplateBinding Content}" 
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Foreground="White"
-                FontSize="15"
-                FontFamily="Futura PT Book Italic">
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            FontSize="15"
+                            FontFamily="Futura PT Book Italic">
             </ContentControl>
             
         </Border>

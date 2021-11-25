@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="C02OwzKWEAEVgke.ico" />
+    <Resource Include="img\loupe.png" />
     <Content Include="RecordBookDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

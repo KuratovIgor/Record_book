@@ -53,14 +53,27 @@
                                             CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}"></KeyBinding>
                             </TextBox.InputBindings>
                         </TextBox>
-                        <Button Grid.Column="1" Content="Поиск" Template="{DynamicResource TemplateButton}" Command="{Binding FilterRecordBookCommand}"/>
+                        <Button Grid.Column="1" Template="{DynamicResource TemplateButton}" Command="{Binding FilterRecordBookCommand}">
+                            <Button.Content>
+                                <Image Source="img/loupe.png" RenderTransformOrigin="0.571,0.617" Height="24" Width="41">
+                                    <Image.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="-1"/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Image.RenderTransform>
+                                </Image>
+                            </Button.Content>
+                        </Button>
                     </Grid>
 
                     <GroupBox Grid.Row="2" Header="Зачетные книжки">
                         <ListBox Background="#6C8CD5" BorderBrush="#6C8CD5"
                             ItemsSource="{Binding  RecordBooksChoosen}"
                             SelectedItem="{Binding CurrentRecordBook}"
-                            Height="150" FontFamily="Futura PT Book Italic">
+                            Height="130" FontFamily="Futura PT Book Italic">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -88,7 +101,7 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Foreground="White" Content="Выберите семестр" HorizontalAlignment="Center" Grid.RowSpan="2" VerticalAlignment="Top"/>
                     <ComboBox Grid.Row="1" Margin="15 0"
-                              FontSize="15" HorizontalContentAlignment="Center"
+                              FontSize="13" HorizontalContentAlignment="Center"
                               ItemsSource="{Binding Terms, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                               SelectedItem="{Binding CurrentTerm}" 
                               Template="{DynamicResource TemplateComboBox}">
@@ -108,9 +121,9 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Border CornerRadius="10" Grid.Row="0" Background="#33CEC3"
+                <Border CornerRadius="10" Grid.Row="0" Background="#679FD2"
                         BorderBrush="Black" BorderThickness="0 0 0 1">
-                    <Label Content="Результаты промежуточной аттестации" FontSize="20"
+                    <Label Foreground="White" Content="Результаты промежуточной аттестации" FontSize="20"
                            HorizontalAlignment="Center"/>
                 </Border>
 
