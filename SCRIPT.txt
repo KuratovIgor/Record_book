@@ -1,0 +1,42 @@
+USE [C:\USERS\KURATOVIA\SOURCE\REPOS\RECORDBOOK\RECORDBOOK\RECORDBOOKDB.MDF]
+GO
+/****** Object:  Table [dbo].[Marks]    Script Date: 25.11.2021 18:04:08 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Marks](
+	[Номер зачетки] [nvarchar](6) NOT NULL,
+	[Семестр] [nvarchar](10) NOT NULL,
+	[Название предмета] [nvarchar](50) NOT NULL,
+	[Кол-во часов] [int] NOT NULL,
+	[Оценка] [int] NULL,
+	[Дата сдачи] [nvarchar](10) NULL,
+	[Тип сдачи] [nvarchar](10) NOT NULL,
+	[Фамилия преподавателя] [nvarchar](30) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Student]    Script Date: 25.11.2021 18:04:08 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Student](
+	[Номер зачетки] [nvarchar](6) NOT NULL,
+	[ФИО] [nvarchar](70) NOT NULL,
+	[Курс] [int] NOT NULL,
+	[ФИО зам.рук-ля] [nvarchar](70) NOT NULL,
+	[Группа] [nchar](10) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Номер зачетки] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Marks]  WITH CHECK ADD FOREIGN KEY([Номер зачетки])
+REFERENCES [dbo].[Student] ([Номер зачетки])
+GO
+ALTER TABLE [dbo].[Marks]  WITH CHECK ADD CHECK  (([Оценка]=(5) OR [Оценка]=(4) OR [Оценка]=(3) OR [Оценка]=(2)))
+GO
+ALTER TABLE [dbo].[Student]  WITH CHECK ADD CHECK  (([Курс]=(4) OR [Курс]=(3) OR [Курс]=(2) OR [Курс]=(1) OR [Курс]=(5)))
+GO
